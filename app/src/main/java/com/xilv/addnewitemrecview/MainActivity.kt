@@ -1,7 +1,10 @@
 package com.xilv.addnewitemrecview
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.GridLayoutManager
 import com.xilv.addnewitemrecview.databinding.ActivityMainBinding
 
@@ -9,15 +12,7 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
     private val adapter = MaestroAdapter()
-    private val imageIdList = listOf(
-        R.drawable.maestro1,
-        R.drawable.maestro2,
-        R.drawable.maestro3,
-        R.drawable.maestro4,
-        R.drawable.maestro5
-    )
-    private var index = 0
-    private var indexMaestro = index
+    private var editLauncher: ActivityResultLauncher<Intent>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +20,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         init()
+        editLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == RESULT_OK) {
+                adapter.addMaestro(it.data?.getSerializableExtra("maestro") as Maestro)
+            }
+        }
     }
 
     private fun init() {
@@ -32,12 +32,8 @@ class MainActivity : AppCompatActivity() {
             rcView.layoutManager = GridLayoutManager(this@MainActivity, 3)
             rcView.adapter = adapter
             buttonAdd.setOnClickListener {
-                indexMaestro++
-                if (index > 4) index = 0
-
-                val maestro = Maestro(imageIdList[index], "Maestro $indexMaestro")
-                adapter.addMaestro(maestro)
-                index++
+                editLauncher?.launch(
+                    Intent(this@MainActivity, EditActivity::class.java))
             }
         }
     }

@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Maestro and RecyclerView</string>
     <string name="add_maestro">Add Maestro</string>
+    <string name="next_image">Next</string>
+    <string name="title_edit_text">Title</string>
+    <string name="description_edit_text">Description</string>
+    <string name="done_button">Done</string>
 </resources>
