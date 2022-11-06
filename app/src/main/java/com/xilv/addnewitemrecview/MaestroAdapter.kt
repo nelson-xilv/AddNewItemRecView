@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.xilv.addnewitemrecview.databinding.MaestroItemBinding
 
 /*
-* адаптер - это некий "посредник" между RecyclerView и данными
+адаптер - это некий "посредник" между RecyclerView и данными
  */
 class MaestroAdapter: RecyclerView.Adapter<MaestroAdapter.MaestroHolder>() {
 
@@ -25,8 +25,8 @@ class MaestroAdapter: RecyclerView.Adapter<MaestroAdapter.MaestroHolder>() {
     }
 
     /*
-    * когда адаптер начинает заполнять шаблоны и выводит их, самое первое, что он делает - это
-    * "надувает" View, т.е. загружает его в память, после чего запускается след. метод
+    когда адаптер начинает заполнять шаблоны и выводит их, самое первое, что он делает - это
+    "надувает" View, т.е. загружает его в память, после чего запускается след. метод
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MaestroHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.maestro_item,
@@ -35,8 +35,8 @@ class MaestroAdapter: RecyclerView.Adapter<MaestroAdapter.MaestroHolder>() {
     }
 
     /*
-    * здесь view, который находится в памяти, заполняется, т.е. в данном случае заполняется
-    * image и title
+    здесь view, который находится в памяти, заполняется, т.е. в данном случае заполняется
+    image и title
      */
     override fun onBindViewHolder(holder: MaestroHolder, position: Int) {
         holder.bind(maestroList[position]) // заполняем с помощью ArrayList элементами

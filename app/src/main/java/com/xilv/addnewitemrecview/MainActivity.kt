@@ -18,10 +18,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         init()
+
+        /*
+        инициализируем переменную с помощью callback (слушатель)
+         */
         editLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            if (it.resultCode == RESULT_OK) {
+            if (it.resultCode == RESULT_OK) { // проверяем данные
                 adapter.addMaestro(it.data?.getSerializableExtra("maestro") as Maestro)
             }
         }
@@ -31,6 +34,8 @@ class MainActivity : AppCompatActivity() {
         binding.apply {
             rcView.layoutManager = GridLayoutManager(this@MainActivity, 3)
             rcView.adapter = adapter
+
+            // запускаем с помощью buttonAdd новое активити
             buttonAdd.setOnClickListener {
                 editLauncher?.launch(
                     Intent(this@MainActivity, EditActivity::class.java))

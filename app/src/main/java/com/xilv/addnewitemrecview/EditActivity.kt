@@ -8,7 +8,6 @@ import com.xilv.addnewitemrecview.databinding.ActivityEditBinding
 class EditActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityEditBinding
-
     private var indexImage = 0
     private var imageId = R.drawable.maestro1
 
@@ -27,7 +26,11 @@ class EditActivity : AppCompatActivity() {
         initButtons()
     }
 
+    /*
+    специальная функция для пролистывания image, добавления title и description
+     */
     private fun initButtons() = with(binding) {
+        // "пролистывание" image для выбора
         buttonNext.setOnClickListener {
             indexImage++
             if (indexImage > imageIdList.size - 1) indexImage = 0
@@ -35,11 +38,12 @@ class EditActivity : AppCompatActivity() {
             imageView.setImageResource(imageId)
         }
 
+        // передача результата (image, title, description) через Intent
         buttonDone.setOnClickListener {
             val maestro = Maestro(imageId, editTitle.text.toString(),
                 editDescription.text.toString())
             val editIntent = Intent().apply {
-                putExtra("maestro", maestro)
+                putExtra("maestro", maestro) // передаем ключевое слово и переменную
             }
             setResult(RESULT_OK, editIntent)
             finish()
