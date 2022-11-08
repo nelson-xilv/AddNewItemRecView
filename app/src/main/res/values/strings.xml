@@ -5,4 +5,8 @@
     <string name="title_edit_text">Title</string>
     <string name="description_edit_text">Description</string>
     <string name="done_button">Done</string>
+    <string name="search">Search</string>
+    <string name="delete">Delete</string>
+    <string name="refresh">Refresh</string>
+    <string name="save">Save</string>
 </resources>
