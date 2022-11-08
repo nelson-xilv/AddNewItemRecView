@@ -23,6 +23,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         /*
+        выбирает элемент из BottomNavigationView (в данном случае notes) по-умолчанию
+         */
+        binding.bottomNavMenu.selectedItemId = R.id.bn_notes
+
+        /*
         supportActionBar - это и есть Toolbar
         setDisplayHomeAsUpEnabled - активирует стрелку, которая находится в Toolbar
          */
@@ -33,8 +38,6 @@ class MainActivity : AppCompatActivity() {
          */
         supportActionBar?.title = "Maestro"
 
-        init()
-
         /*
         инициализируем переменную с помощью callback (слушатель)
          */
@@ -43,6 +46,9 @@ class MainActivity : AppCompatActivity() {
                 adapter.addMaestro(it.data?.getSerializableExtra("maestro") as Maestro)
             }
         }
+
+        init()
+        setButtonNavigationView()
     }
 
     /*
@@ -73,14 +79,20 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "Save", Toast.LENGTH_SHORT).show()
             }
         }
-
         return true
     }
 
+    /*
+    в данной функции инициализируется RecyclerView
+     */
     private fun init() {
         binding.apply {
+            /*
+            настраиваем какого типа будет RecyclerView (в данном случае тип выбран "сетчатый"
+            с 3 элементами в 1-ой строке
+             */
             rcView.layoutManager = GridLayoutManager(this@MainActivity, 3)
-            rcView.adapter = adapter
+            rcView.adapter = adapter // присваиваем adapter
 
             // запускаем с помощью buttonAdd новое активити
             buttonAdd.setOnClickListener {
@@ -89,4 +101,26 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    /*
+    при нажатии на элемент из BottomNavigationView запустится слушатель (внизу) и выдаст переменную,
+    которая будет содержать в себе item, на который нажал пользователь
+     */
+    private fun setButtonNavigationView() {
+        binding.bottomNavMenu.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.bn_notes -> {
+                    Toast.makeText(this, "Note", Toast.LENGTH_SHORT).show()
+                }
+                R.id.bn_favorites -> {
+                    Toast.makeText(this, "Favorites", Toast.LENGTH_SHORT).show()
+                }
+                R.id.bn_info -> {
+                    Toast.makeText(this, "Info", Toast.LENGTH_SHORT).show()
+                }
+            }
+            true
+        }
+    }
+
 }
